@@ -16,11 +16,20 @@
         <pronunciation/>
       </div>
     </div>
+    <div class="item">
+      <div class="title">
+        <h3>Select the Right Word</h3>
+      </div>
+      <div>
+        <selectWord/>
+      </div>
+    </div>
   </div>
 </template>
 <script>
 import listening from '@/components/Listening'
 import pronunciation from '@/components/Pronunciation'
+import selectWord from '@/components/SelectWord'
 
 export default {
   name: "Listening",
@@ -29,7 +38,8 @@ export default {
   }),
   components: {
     listening,
-    pronunciation
+    pronunciation,
+    selectWord
   }
 }
 </script>

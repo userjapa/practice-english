@@ -1,19 +1,22 @@
 <template>
   <div>
     <input type="text" name="text" v-model="text">
-    <button type="button" name="speech" @click="speak()" :disabled="isTalking">Click to Speak</button>
+    <button type="button" name="speech" class="border-round" @click="speak()" ref="speech" :disabled="isTalking">Click to Speak</button>
+    <input type="text" name="answer" v-model="answer" placeholder="You said..." disabled>
   </div>
 </template>
 <script>
 export default {
-  name: "",
+  name: "pronunciation",
   data: () => ({
-    text: "Are you alright?",
+    text: "Are you all right?",
     voice: null,
-    isTalking: false
+    isTalking: false,
+    answer: ''
   }),
   methods: {
     speak () {
+      this.answer = ''
       this.isTalking = true
       this.voice.start()
     }
@@ -27,10 +30,14 @@ export default {
     voice.maxAlternatives = 5
     voice.onaudiostart = () => {
       console.log('Getting voice...')
+      this.$refs['speech'].style['background-color'] = 'red'
+      this.$refs['speech'].style['color'] = 'white'
     }
     voice.onend = () => {
       console.log('Ended')
       this.isTalking = false
+      this.$refs['speech'].style['background-color'] = 'white'
+      this.$refs['speech'].style['color'] = 'black'
     }
     voice.onerror = err => {
       console.error('Error! ', err)
@@ -38,6 +45,9 @@ export default {
     voice.onresult = ev => {
       let answer = ev.results[0][0].transcript
       let text = this.text
+
+      // Set Answer
+      this.answer = answer
 
       answer = answer.replace(/[\.?!,]+/g, '').toLowerCase().trim()
       text = text.replace(/[\.?!,]+/g, '').toLowerCase().trim()
@@ -50,4 +60,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.border-round {
+  border-radius: 5 px;
+}
 </style>

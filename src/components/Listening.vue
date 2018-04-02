@@ -26,7 +26,7 @@ export default {
       text = text.replace(/[\.?!,]+/g, '').toLowerCase().trim()
       if (answer === text) alert('Correct!')
       else alert('You Failed!')
-      answer = ''
+      this.answer = ''
     }
   },
   beforeMount () {
@@ -34,7 +34,7 @@ export default {
     let english = {}
     setTimeout(() => {
       languages = this.voice.getVoices()
-      this.language = languages.filter(x => x.lang === 'en-US')[0]
+      this.language = languages.filter(x => x.lang === 'en-US')[2]
     }, 10)
   }
 }
